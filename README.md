@@ -16,10 +16,10 @@ Module Input Variables
 - `timeout` - (optional) the amount of time your Lambda Function has to run in seconds. Defaults to 3. See [Limits](https://docs.aws.amazon.com/lambda/latest/dg/limits.html)
 - `enabled` - boolean expression. If false, the lambda function and the cloudwatch schedule are not set. Defaults to `true`.
 
-Usage 
+Usage
 -----
 
-```js
+```hcl
 data "aws_iam_policy_document" "create_snaps" {
   statement {
     sid = "1"
@@ -54,10 +54,26 @@ module "lambda_scheduled" {
 }
 ```
 
+Conditional Usage
+-------
+
+You can enable/disable the usage of this module as necessary for creation.
+
+```hcl
+module "lambda_scheduled" {
+  source              = "github.com/terraform-community-modules/tf_aws_lambda_scheduled"
+
+  create_lambda = true||false
+
+  # omitted ...
+```
+
 Outputs
 -------
 - `lambda_arn` - ARN for the created Lambda function
 
 Author
 ------
-Created and maintained by [Shayne Clausson](https://github.com/sclausson)
+Created and by [Shayne Clausson](https://github.com/sclausson)
+
+Updated and maintained by [Bryant Rockoff](https://github.com/brockoffdev) on behalf of [WeWork](https://github.com/wework)

@@ -1,3 +1,7 @@
+variable "create_lambda" {
+  default = true
+}
+
 variable "lambda_name" {}
 
 variable "runtime" {}
@@ -11,10 +15,6 @@ variable "handler" {}
 variable "schedule_expression" {}
 
 variable "iam_policy_document" {}
-
-variable "enabled" {
-  default = true
-}
 
 variable "timeout" {
   default = 3
