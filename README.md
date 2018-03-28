@@ -43,7 +43,7 @@ data "archive_file" "myfunction" {
 }
 
 module "lambda_scheduled" {
-  source              = "github.com/terraform-community-modules/tf_aws_lambda_scheduled"
+  source              = "github.com/weconnect/terraform-aws-lambda_scheduled"
   lambda_name         = "my_scheduled_lambda"
   runtime             = "python2.7"
   lambda_zipfile      = "/valid/path/to/myfunction.zip"
@@ -61,7 +61,7 @@ You can enable/disable the usage of this module as necessary for creation.
 
 ```hcl
 module "lambda_scheduled" {
-  source              = "github.com/terraform-community-modules/tf_aws_lambda_scheduled"
+  source              = "github.com/weconnect/terraform-aws-lambda_scheduled"
 
   create_lambda = true||false
 
