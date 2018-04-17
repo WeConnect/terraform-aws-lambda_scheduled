@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda" {
-  count = "${var.create_lambda ? 1 : 0}"
+  count = "${var.enabled}"
   name  = "${var.lambda_name}"
 
   assume_role_policy = <<EOF
@@ -20,7 +20,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "lambda" {
-  count = "${var.create_lambda ? 1 : 0}"
+  count = "${var.enabled}"
   name  = "${var.lambda_name}"
   role  = "${aws_iam_role.lambda.name}"
 
@@ -28,7 +28,7 @@ resource "aws_iam_role_policy" "lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
-  count            = "${var.create_lambda ? 1 : 0}"
+  count            = "${var.enabled}"
   runtime          = "${var.runtime}"
   filename         = "${var.lambda_zipfile}"
   function_name    = "${var.lambda_name}"
@@ -39,7 +39,7 @@ resource "aws_lambda_function" "lambda" {
 }
 
 resource "aws_lambda_permission" "cloudwatch" {
-  count         = "${var.create_lambda ? 1 : 0}"
+  count         = "${var.enabled}"
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.lambda.arn}"
@@ -48,13 +48,13 @@ resource "aws_lambda_permission" "cloudwatch" {
 }
 
 resource "aws_cloudwatch_event_rule" "lambda" {
-  count               = "${var.create_lambda ? 1 : 0}"
+  count               = "${var.enabled}"
   name                = "${var.lambda_name}"
   schedule_expression = "${var.schedule_expression}"
 }
 
 resource "aws_cloudwatch_event_target" "lambda" {
-  count     = "${var.create_lambda ? 1 : 0}"
+  count     = "${var.enabled}"
   target_id = "${var.lambda_name}"
   rule      = "${aws_cloudwatch_event_rule.lambda.name}"
   arn       = "${aws_lambda_function.lambda.arn}"
