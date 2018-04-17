@@ -1,4 +1,4 @@
-variable "create_lambda" {
+variable "enabled" {
   default = true
 }
 
